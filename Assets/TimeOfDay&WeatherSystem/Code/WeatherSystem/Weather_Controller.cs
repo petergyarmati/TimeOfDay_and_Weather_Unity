@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Weather_Controller : MonoBehaviour
+public class Weather_Controller : MonoBehaviour 
 {
     /********** ----- VARIABLES ----- **********/
 
@@ -161,7 +161,7 @@ public class Weather_Controller : MonoBehaviour
         set { _fCurrTemp = value; }
     }
 
-	void Start ()
+	void Start () 
     {
         _fTimeChangeWeatherStart = 0.0f;
         _fTimeChangeWeatherEnd = 5.0f;
@@ -182,7 +182,7 @@ public class Weather_Controller : MonoBehaviour
             EnterNewWeather((int)en_CurrWeather);
 	}
 
-	void Update ()
+	void Update () 
     {
         if (_bUseRandomWeather == true)
         {
@@ -418,7 +418,7 @@ public class Weather_Controller : MonoBehaviour
     }
 
 	/// <summary>
-	/// This is our function that controls all the changes to the weather.
+	/// This is our function that controls all the changes to the weather. 
 	/// </summary>
 	/// <param name="sunIntensity">Sun intensity</param>
 	/// <param name="sunLightColor">Sun light color</param>
@@ -444,7 +444,7 @@ public class Weather_Controller : MonoBehaviour
 
         // Skybox settings
         if (_bUsingProceduralSkybox == false)
-            RenderSettings.skybox.SetColor("_Tint", Color.Lerp(RenderSettings.skybox.GetColor("_Tint"), skyTint, Time.deltaTime / fadeTime));
+            RenderSettings.skybox.SetColor("_SkyTint", Color.Lerp(RenderSettings.skybox.GetColor("_SkyTint"), skyTint, Time.deltaTime / fadeTime));
         else
         {
             RenderSettings.skybox.SetColor("_SkyTint", Color.Lerp(RenderSettings.skybox.GetColor("_SkyTint"), skyTint, Time.deltaTime / fadeTime));
@@ -455,7 +455,7 @@ public class Weather_Controller : MonoBehaviour
         if (matClouds != null)
             matClouds.color = Color.Lerp(matClouds.color, cloudColor, Time.deltaTime / fadeTime);
         else
-            Debug.LogWarning("We have no cloud material attached to:" + this.gameObject);
+            //Debug.LogWarning("We have no cloud material attached to:" + this.gameObject);
 
         // Fog settings
         RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, fogDensity, Time.deltaTime / fadeTime);
@@ -558,3 +558,4 @@ public class Weather_Controller : MonoBehaviour
         }
     }
 }
+

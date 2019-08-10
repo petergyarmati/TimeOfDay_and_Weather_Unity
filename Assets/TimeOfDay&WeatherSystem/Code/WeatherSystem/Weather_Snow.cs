@@ -71,10 +71,11 @@ public class Weather_Snow : Weather_Base
         TurnOnSnow();
 
         // We turn on emission on the particle system as we always turn it off in the end
-        if (_gPartSnow != null) {
-          ParticleSystem sp = _gPartSnow.GetComponent<ParticleSystem>();
-          var sem = sp.emission;
-          sem.enabled = true;
+        if (_gPartSnow != null)
+        {
+            ParticleSystem sp = _gPartSnow.GetComponent<ParticleSystem>();
+            var sem = sp.emission;
+            sem.enabled = true;
         }
     }
 
@@ -241,3 +242,4 @@ public class Weather_Snow : Weather_Base
         }
     }
 }
+
