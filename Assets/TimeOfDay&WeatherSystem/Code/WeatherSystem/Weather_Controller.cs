@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Weather_Controller : MonoBehaviour 
+public class Weather_Controller : MonoBehaviour
 {
     /********** ----- VARIABLES ----- **********/
 
@@ -161,7 +161,7 @@ public class Weather_Controller : MonoBehaviour
         set { _fCurrTemp = value; }
     }
 
-	void Start () 
+	void Start ()
     {
         _fTimeChangeWeatherStart = 0.0f;
         _fTimeChangeWeatherEnd = 5.0f;
@@ -182,7 +182,7 @@ public class Weather_Controller : MonoBehaviour
             EnterNewWeather((int)en_CurrWeather);
 	}
 
-	void Update () 
+	void Update ()
     {
         if (_bUseRandomWeather == true)
         {
@@ -418,7 +418,7 @@ public class Weather_Controller : MonoBehaviour
     }
 
 	/// <summary>
-	/// This is our function that controls all the changes to the weather. 
+	/// This is our function that controls all the changes to the weather.
 	/// </summary>
 	/// <param name="sunIntensity">Sun intensity</param>
 	/// <param name="sunLightColor">Sun light color</param>
@@ -477,17 +477,19 @@ public class Weather_Controller : MonoBehaviour
     {
         if (CurrParticles != null)
         {
-            if (CurrParticles.gameObject.GetComponent<ParticleSystem>() != false)
+            ParticleSystem CP = CurrParticles.gameObject.GetComponent<ParticleSystem>();
+            var CPem = CP.emission;
+            if (CP != false)
             {
-                if (CurrParticles.gameObject.GetComponent<ParticleSystem>().enableEmission == false)
+                if (CPem.enabled == false)
                 {
-                    CurrParticles.gameObject.GetComponent<ParticleSystem>().enableEmission = true;
+                    CPem.enabled = true;
 
                     if (CurrParticles.transform.childCount != 0)
                     {
                         for (int iii = 0; iii < CurrParticles.transform.childCount; ++iii)
                         {
-                            CurrParticles.transform.GetChild(iii).gameObject.GetComponent<ParticleSystem>().enableEmission = true;
+                            CPem.enabled = true;
                         }
                     }
                 }
@@ -498,7 +500,7 @@ public class Weather_Controller : MonoBehaviour
                 {
                     for (int iii = 0; iii < CurrParticles.transform.childCount; ++iii)
                     {
-                        CurrParticles.transform.GetChild(iii).gameObject.GetComponent<ParticleSystem>().enableEmission = true;
+                        CPem.enabled = true;
                     }
                 }
             }
@@ -514,17 +516,19 @@ public class Weather_Controller : MonoBehaviour
     {
         if (CurrParticles != null)
         {
-            if (CurrParticles.gameObject.GetComponent<ParticleSystem>() != false)
+            ParticleSystem CP = CurrParticles.gameObject.GetComponent<ParticleSystem>();
+            var CPem = CP.emission;
+            if (CP != false)
             {
-                if (CurrParticles.gameObject.GetComponent<ParticleSystem>().enableEmission == true)
+                if (CPem.enabled == true)
                 {
-                    CurrParticles.gameObject.GetComponent<ParticleSystem>().enableEmission = false;
+                    CPem.enabled = false;
 
                     if (CurrParticles.transform.childCount != 0)
                     {
                         for (int iii = 0; iii < CurrParticles.transform.childCount; ++iii)
                         {
-                            CurrParticles.transform.GetChild(iii).gameObject.GetComponent<ParticleSystem>().enableEmission = false;
+                            CPem.enabled = false;
                         }
                     }
                 }
@@ -535,7 +539,7 @@ public class Weather_Controller : MonoBehaviour
                 {
                     for (int iii = 0; iii < CurrParticles.transform.childCount; ++iii)
                     {
-                        CurrParticles.transform.GetChild(iii).gameObject.GetComponent<ParticleSystem>().enableEmission = false;
+                        CPem.enabled = false;
                     }
                 }
             }
@@ -554,4 +558,3 @@ public class Weather_Controller : MonoBehaviour
         }
     }
 }
-

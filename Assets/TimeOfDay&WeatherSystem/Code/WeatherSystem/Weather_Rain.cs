@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Weather_Rain : Weather_Base 
+public class Weather_Rain : Weather_Base
 {
     /********** ----- VARIABLES ----- **********/
 
@@ -71,8 +71,11 @@ public class Weather_Rain : Weather_Base
         TurnOnRain();
 
         // We turn on emission on the particle system as we always turn it off in the end
-        if (_gPartRain != null)
-            _gPartRain.GetComponent<ParticleSystem>().enableEmission = true;
+        if (_gPartRain != null) {
+            ParticleSystem rp = _gPartRain.GetComponent<ParticleSystem>();
+            var rem = rp.emission;
+            rem.anabled = true;
+        }
     }
 
     private void Update()
@@ -218,7 +221,9 @@ public class Weather_Rain : Weather_Base
         if (_gPartRain != null && _gPartRain.activeInHierarchy == true)
         {
             _fEndParticleTimerStart += Time.deltaTime;
-            _gPartRain.GetComponent<ParticleSystem>().enableEmission = false;
+            ParticleSystem rp = _gPartRain.GetComponent<ParticleSystem>();
+            var rem = rp.emission;
+            rem.enabled = false;
 
             if (_bTurnOffSoundAtExit == true)
             {
@@ -236,4 +241,3 @@ public class Weather_Rain : Weather_Base
         }
     }
 }
-

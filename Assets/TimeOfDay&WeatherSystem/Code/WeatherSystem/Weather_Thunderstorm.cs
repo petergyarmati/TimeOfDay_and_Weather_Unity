@@ -6,7 +6,7 @@ public class Weather_Thunderstorm : Weather_Base
     /********** ----- VARIABLES ----- **********/
 
     /********** GAMEOBJECTS Settings **********/
-    
+
     // RAIN
     /// <summary>
     /// Here we save the particle effect that we use for the rain effect. This is also where the sound will play from\n
@@ -16,7 +16,7 @@ public class Weather_Thunderstorm : Weather_Base
     private GameObject _gPartRain;
 
     /// <summary>
-    /// I create a new gameobject at run time for the lighting. This object is deleted when we change weather type. 
+    /// I create a new gameobject at run time for the lighting. This object is deleted when we change weather type.
     /// </summary>
     private GameObject _gLighting;
 
@@ -28,12 +28,12 @@ public class Weather_Thunderstorm : Weather_Base
     /********** THUNDER Settings **********/
 
     /// <summary>
-    /// This is our timer that counts up to for when lighting should strike. 
+    /// This is our timer that counts up to for when lighting should strike.
     /// </summary>
     private float _fTimerForNextLighting;
 
     /// <summary>
-    /// float to save the randomised time on how often the lighting should strike. 
+    /// float to save the randomised time on how often the lighting should strike.
     /// </summary>
     private float _fTimeForNextLighting;
 
@@ -110,7 +110,7 @@ public class Weather_Thunderstorm : Weather_Base
     /********** ----- GETTERS AND SETTERS ----- **********/
 
     /********** GAMEOBJECTS Settings **********/
-    
+
     public GameObject GetSet_gPartRain
     {
         get { return _gPartRain; }
@@ -227,7 +227,7 @@ public class Weather_Thunderstorm : Weather_Base
 
         // Here we set values for this so we have starting values, they are hardcoded as we need them to be high!
         _fTimeForNextLighting = Random.Range(_fRandomThunderTimeMin + 500.0f, _fRandomThunderTimeMax + 1000.0f);
-        _fTimerForNextLighting = 0.0f; // As we create a lighting here in the INIT(), we reset the timer after this 
+        _fTimerForNextLighting = 0.0f; // As we create a lighting here in the INIT(), we reset the timer after this
     }
 
     public override void Init()
@@ -236,8 +236,11 @@ public class Weather_Thunderstorm : Weather_Base
         TurnOnRain();
 
         // We turn on emission on the particle system as we always turn it off in the end
-        if (_gPartRain != null)
-            _gPartRain.GetComponent<ParticleSystem>().enableEmission = true;
+        if (_gPartRain != null) {
+            ParticleSystem rp = _gPartRain.GetComponent<ParticleSystem>();
+            var rem = rp.emission;
+            rem.enabled = true;
+        }
 
         // Create the lighting component and components needs for it
         _gLighting = new GameObject("ThunderLighting");
@@ -252,7 +255,7 @@ public class Weather_Thunderstorm : Weather_Base
             Instantiate(_gLighting, new Vector3(0, _fLightningHeight, 0), new Quaternion(0, 0, 0, 0));
 
         _fTimeForNextLighting = Random.Range(_fRandomThunderTimeMin, _fRandomThunderTimeMax);
-        _fTimerForNextLighting = 0.0f; // As we create a lighting here in the INIT(), we reset the timer after this 
+        _fTimerForNextLighting = 0.0f; // As we create a lighting here in the INIT(), we reset the timer after this
     }
 
     private void Update()
@@ -451,7 +454,9 @@ public class Weather_Thunderstorm : Weather_Base
         if (_gPartRain != null && _gPartRain.activeInHierarchy == true)
         {
             _fEndParticleTimerStart += Time.deltaTime;
-            _gPartRain.GetComponent<ParticleSystem>().enableEmission = false;
+            ParticleSystem rp = _gPartRain.GetComponent<ParticleSystem>();
+            var rem = rp.emission;
+            rem.enabled = false;
 
             _fTimerForNextLighting = 0.0f;
             _fTimeForNextLighting = 0.0f;
